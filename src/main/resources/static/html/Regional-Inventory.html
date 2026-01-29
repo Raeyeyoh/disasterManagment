@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>DMS - Regional Inventory</title>
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/utilities.css" />
+  </head>
+
+  <body>
+    <nav id="home"></nav>
+
+    <main class="container">
+      <h2 class="page-title" id="region-title">Local Inventory</h2>
+
+      <section class="card panel--accent">
+        <h3 class="section-title">My Local Stock</h3>
+
+        <table class="table-card w-100">
+          <thead>
+            <tr class="table-head">
+              <th>Item Name</th>
+              <th>Local Quantity</th>
+              <th>Type</th>
+              <th>Unit</th>
+              <th>Last Updated</th>
+            </tr>
+          </thead>
+          <tbody id="local-stock-table"></tbody>
+        </table>
+      </section>
+
+      <section class="card">
+        <h3 class="section-title">Request More Supplies</h3>
+
+        <p class="muted-text">
+          Submit a request if local stock is insufficient for current disaster
+          needs.
+        </p>
+
+        <form id="request-form" class="form-compact">
+          <div class="form-row">
+            <label>Item Name</label>
+            <input
+              type="text"
+              id="reqItemName"
+              placeholder="e.g. Rice, Water, Blankets"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <label>Item Type</label>
+            <select id="reqItemType" name="itemType" required>
+              <option value="FOOD">Food</option>
+              <option value="MEDICAL">Medical</option>
+              <option value="EQUIPMENT">Equipment</option>
+              <option value="OTHER">Other</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label>Quantity Needed</label>
+            <input type="number" id="reqQuantity" required />
+          </div>
+
+          <button
+            type="button"
+            class="btn-primary"
+            onclick="submitSupplyRequest()"
+          >
+            Send Request to Central
+          </button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h3 class="section-title">Request Status History</h3>
+
+        <table class="table-card w-100">
+          <thead>
+            <tr class="table-head">
+              <th>Date</th>
+              <th>Item</th>
+              <th>itemType</th>
+              <th>Qty</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="request-history-table"></tbody>
+        </table>
+      </section>
+    </main>
+
+    <script src="../js/navbar.js"></script>
+    <script src="../js/regional-inventory.js"></script>
+  </body>
+</html>

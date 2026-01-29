@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/utilities.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <title>DMS - Report Incident</title>
+  </head>
+
+  <body class="flex center">
+    <div class="form-panel large accent-top">
+      <nav id="home"></nav>
+
+      <h2 class="panel-title">📢 New Incident Report</h2>
+
+      <form id="incidentForm">
+        <div class="form-row">
+          <label>Incident Type</label>
+          <select id="title" required>
+            <option value="FLOOD">Flood</option>
+            <option value="FIRE">Fire</option>
+            <option value="VOLCANO">Volcano</option>
+            <option value="DROUGHT">Drought</option>
+            <option value="LANDSLIDE">Landslide</option>
+            <option value="EARTHQUAKE">EARTHQUAKE</option>
+            <option value="STORM">Storm</option>
+            <option value="WILDFIRE">Wildfire</option>
+            <option value="EPIDEMIC">Epidemic</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label>GPS Location (Coordinates)</label>
+
+          <div class="flex">
+            <input
+              type="text"
+              id="location"
+              placeholder="Pin coordinates"
+              readonly
+              required
+            />
+            <button type="button" class="btn-gps" onclick="captureGPS()">
+              📍 Get GPS
+            </button>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label>Description</label>
+          <textarea id="description" rows="4" required></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary btn-block">
+          SUBMIT REPORT
+        </button>
+      </form>
+      <div id="post-report-actions" style="display: none;">
+    <div id="facility-controls" class="mt-2">
+        <p>Need assistance? Find resources near this incident:</p>
+        <button type="button" onclick="findNearby('hospital')" class="btn-hospital btn-block btn-primary">🏥 Nearby Hospitals</button>
+        <button type="button" onclick="findNearby('police')" class="btn-police btn-block btn-primary">👮 Nearby Police</button>
+        <button type="button" onclick="findNearby('water_point')" class="btn-volunteer btn-block btn-primary">💧 Water Points</button>
+    </div>
+
+    <div id="map" style="height: 300px; margin-top: 20px; border-radius: 8px; border: 1px solid #ccc;"></div>
+    
+    <button onclick="window.location.href='home.html'" class="btn-secondary btn-block mt-2 btn-primary">
+        Done & Return Home
+    </button>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="../js/report-incident.js"></script>
+<script src="../js/navbar.js"></script>
+    
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Central Warehouse Management</title>
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/utilities.css" />
+  </head>
+  <body>
+    <nav id="home"></nav>
+
+    <div class="container card">
+      <h2 class="page-title">Main Office: Central Inventory</h2>
+
+      <section class="admin-panel">
+        <h3 class="section-title">Restock Central Catalog</h3>
+        <form id="add-resource-form">
+          <input type="text" id="itemName" placeholder="Item Name" required />
+          <input type="number" id="quantity" placeholder="Quantity" required />
+          <select id="itemType">
+            <option value="FOOD">Food</option>
+            <option value="MEDICAL">Medical</option>
+            <option value="EQUIPMENT">Equipment</option>
+            <option value="OTHER">Other</option>
+          </select>
+          <input type="text" id="unit" placeholder="Unit in kg" />
+          <button type="button" onclick="restockCentral()" class="btn-primary">
+            Add to Stock
+          </button>
+        </form>
+      </section>
+
+      <section>
+        <h3 class="section-title">Incoming Requests from Regions</h3>
+        <table class="table-card w-100">
+          <thead>
+            <tr class="table-head">
+              <th>Region</th>
+              <th>Item Requested</th>
+              <th>Quantity</th>
+              <th>Type</th>
+              <th>Requested By</th>
+              <th>Priority</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="pending-requests-table"></tbody>
+        </table>
+      </section>
+
+      <hr />
+      <section>
+        <h3 class="section-title">Current Warehouse Stock</h3>
+        <table class="table-card w-100">
+          <thead>
+            <tr class="table-head">
+              <th>Item Name</th>
+              <th>Total Quantity</th>
+              <th>Type</th>
+              <th>Unit</th>
+            </tr>
+          </thead>
+          <tbody id="central-stock-table"></tbody>
+        </table>
+      </section>
+    </div>
+
+    <script src="../js/navbar.js"></script>
+    <script src="../js/central-inventory.js"></script>
+  </body>
+</html>

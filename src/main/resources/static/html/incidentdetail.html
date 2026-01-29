@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/utilities.css" />
+  </head>
+  <body class="flex center">
+    <div class="container form-panel small accent-top">
+      <nav id="home"></nav>
+
+      <h2 id="main-title" class="panel-title">Loading...</h2>
+
+      <button
+        id="btn-accept"
+        onclick="updateMyStatus('RESPONDING')"
+        class="btn-primary"
+      >
+        Accept Incident & Respond
+      </button>
+
+      <div class="details-section">
+        <h3 style="margin-top: 20px">Incident Details</h3>
+        <p><strong>Title:</strong> <span id="display-title"></span></p>
+        <p><strong>Description:</strong> <span id="description"></span></p>
+        <p><strong>Severity:</strong> <span id="severity"></span></p>
+        <p><strong>Status:</strong> <span id="status"></span></p>
+        <p><strong>Region:</strong> <span id="region"></span></p>
+        <p><strong>Distance:</strong> <span id="distance">Pending...</span></p>
+      </div>
+
+      <div
+        id="action-group"
+        style="
+          display: none;
+          margin-top: 20px;
+          gap: 10px;
+          flex-direction: column;
+        "
+      >
+        <button class="btn-primary" onclick="goToAidDistribution()">
+          📦 Distribute Aid
+        </button>
+        <button class="btn-primary" onclick="goToFeedback()">
+          📝 Submit Final Report (Resolve)
+        </button>
+        <button class="btn-primary" onclick="navigate()">
+          🧭 Open GPS Navigation
+        </button>
+      </div>
+
+      <script src="../js/incidentdetail.js"></script>
+      <script src="../js/navbar.js"></script>
+    </div>
+  </body>
+</html>

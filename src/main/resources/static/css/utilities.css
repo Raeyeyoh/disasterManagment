@@ -1,0 +1,144 @@
+.flex {
+  display: flex;
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}
+.w-100 {
+  width: 100%;
+}
+
+.muted-text {
+  color: #666;
+  font-size: 0.9rem;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.text-green {
+  color: #2e7d32;
+}
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.gap-2 {
+  gap: 2rem;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.map-full {
+  width: 100%;
+  height: 400px;
+}
+.dashboard-charts canvas {
+  width: 100% !important;
+  height: 300px !important;
+}
+.feedback-card {
+  background: #fff;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.feedback-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.feedback-body p {
+  margin: 0;
+  line-height: 1.4;
+  color: #333;
+}
+
+.feedback-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 0.5rem;
+}
+
+.btn-resolve {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.btn-resolve:hover {
+  background-color: #218838;
+}
+
+.status-resolved {
+  border-left: 4px solid #28a745;
+}
+
+.resolve-tick {
+  color: #28a745;
+  font-weight: bold;
+}
+.status-pill {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.viewed {
+  background-color: #dfe6e9;
+  color: #636e72;
+}
+.responding {
+  background-color: #ffeaa7;
+  color: #d6a031;
+}
+.resolved {
+  background-color: #55efc4;
+  color: #00b894;
+}
+
+.incident-card {
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  margin-top: 10px;
+}
+.incident-card:hover {
+  transform: translateY(-5px);
+}

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>analytics</title>
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/utilities.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+  </head>
+  <body>
+
+
+    <main >
+      
+      <section id="chartsSection" class="card panel--accent dashboard-section">
+        <nav id="home"></nav>
+
+    <h2 class="panel-title">Incident Analytics</h2>
+    
+    <div class="chart-row-top">
+      <div class="chart-container">
+        <canvas id="statusChart"></canvas>
+        <button onclick="downloadChart('statusChart', 'Status_Summary.png')" class="btn-download">📥 Download</button>
+      </div>
+      <div class="chart-container">
+        <canvas id="regionChart"></canvas>
+        <button onclick="downloadChart('regionChart', 'Regional_Incidents.png')" class="btn-download">📥 Download</button>
+      </div>
+    </div>
+
+    <div class="chart-row-bottom">
+      <div class="chart-container tall">
+        <canvas id="severityLineChart"></canvas>
+        <button onclick="downloadChart('severityLineChart', 'Severity_Trends.png')" class="btn-download">📥 Download</button>
+      </div>
+   
+    <div class="chart-container ">
+  <canvas id="approvedQuantityChart"></canvas>
+</div>
+ </div>
+
+  </section>
+
+    <section id="map-section" class="card panel--accent mt-2">
+        <h2 class="panel-title">incident Locations</h2>
+        <div id="map" class="map-full"></div>
+      </section>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/analytics.js"></script>
+    <script src="../js/navbar.js"></script>
+  </body>
+</html>

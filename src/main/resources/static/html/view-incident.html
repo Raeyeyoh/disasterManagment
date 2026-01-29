@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/utilities.css" />
+    <title>DMS - View Incidents</title>
+  </head>
+
+  <body>
+    <nav id="home"></nav>
+    <main class="container">
+      <section class="card panel--accent">
+        <h2 id="page-title" class="panel-title">Regional Incident Reports</h2>
+
+        <table id="incident-table" class="table-card w-100">
+          <thead>
+            <tr class="table-head">
+              <th>ID</th>
+              <th>Title</th>
+              <th>Status</th>
+              <th id="reg" style="display: none">Severity</th>
+              <th>Reported At</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="incident-table-body"></tbody>
+        </table>
+      </section>
+    </main>
+
+    <div id="incidentModal" class="modal">
+      <div class="modal-content">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+
+        <h2 id="modalTitle">Incident Details</h2>
+        <hr />
+
+        <div id="modalBody">
+          <p>
+            <strong>Description:</strong>
+            <span id="detDescription"></span>
+          </p>
+
+          <p>
+            <strong>Location:</strong>
+            <span id="detLocation"></span>
+          </p>
+
+          <p>
+            <strong>Severity:</strong>
+            <span id="detSeverity"></span>
+          </p>
+
+          <div id="feedbackLogSection">
+            <h4>Activity Log</h4>
+            <div id="modalFeedback"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/view-incident.js"></script>
+    <script src="../js/navbar.js"></script>
+  </body>
+</html>

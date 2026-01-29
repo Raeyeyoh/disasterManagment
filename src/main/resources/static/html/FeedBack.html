@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Distribution</title>
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/utilities.css" />
+  </head>
+  <body>
+    <nav id="home"></nav>
+
+    <div class="container">
+      <div id="submission-section" class="card" style="display: none">
+        <h3 class="panel-title section-title text-green">
+          Submit Field Report
+        </h3>
+        <form id="feedbackForm">
+          <div class="form-group">
+            <label class="panel-title text-green">Select Incident:</label>
+            <select id="incidentSelect" required>
+              <option value="">Loading incidents...</option>
+            </select>
+          </div>
+
+          <textarea
+            id="msg"
+            placeholder="Describe situation... "
+            required
+          ></textarea>
+
+          <div class="form-group">
+            <label>Rating (1-5):</label>
+            <input type="number" id="rate" min="1" max="5" value="3" />
+          </div>
+
+          <button type="submit" class="btn-primary btn-block">
+            Submit Report
+          </button>
+        </form>
+      </div>
+
+      <div id="admin-feed-section" class="card" style="display: none">
+        <h3>Regional Activity Feed</h3>
+        <div id="feedbackContainer"></div>
+      </div>
+    </div>
+    <script src="../js/feedback.js"></script>
+    <script src="../js/navbar.js"></script>
+  </body>
+</html>

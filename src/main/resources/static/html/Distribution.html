@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DMS | Aid Distribution</title>
+
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/utilities.css" />
+  </head>
+
+  <body>
+    <nav id="home"></nav>
+
+    <main class="container">
+      <section class="card panel--accent">
+        <h2 class="panel-title">Distribute Aid to Victim</h2>
+        <p
+          id="incident-context"
+          style="color: gray; font-size: 0.9em; margin-bottom: 15px"
+        ></p>
+        <form id="aidDistributionForm" class="form-compact">
+          <div class="form-group">
+            <label>Incident / Disaster Case:</label>
+            <select id="incidentId" required></select>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="form-group">
+            <label>Victim National ID (Unique):</label>
+            <input
+              type="text"
+              id="nationalId"
+              placeholder="e.g. 123456789"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Victim Full Name:</label>
+            <input
+              type="text"
+              id="victimName"
+              placeholder="Enter name if new victim"
+              required
+            />
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="form-group">
+            <label>Item to Give:</label>
+            <select id="itemName" required></select>
+          </div>
+
+          <div class="form-group">
+            <label>Quantity:</label>
+            <input type="number" id="quantity" min="1" required />
+          </div>
+
+          <button type="submit" class="btn-primary btn-block">
+            Confirm Distribution
+          </button>
+        </form>
+      </section>
+    </main>
+
+    <script src="../js/navbar.js"></script>
+    <script src="../js/Distribution.js"></script>
+  </body>
+</html>

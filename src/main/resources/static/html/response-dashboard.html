@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/utilities.css" />
+  </head>
+  <body>
+    <nav id="home"></nav>
+    <div class="admin-container">
+      <h2>Live Personnel Tracking</h2>
+      <div class="filter-bar">
+        <select id="incident-filter" onchange="filterResponseData()">
+          <option value="ALL">All Active Incidents</option>
+        </select>
+      </div>
+
+      <div
+        id="response-grid"
+        style="
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+          gap: 20px;
+        "
+      ></div>
+    </div>
+    <script src="../js/response-dashboared.js"></script>
+    <script src="../js/navbar.js"></script>
+  </body>
+</html>
