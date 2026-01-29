@@ -33,4 +33,6 @@ build/
 .vscode/
 # .gitignore
 /src/main/resources/application.properties
-.env
+# Environment files
+*.env
+src/main/resources/*.env
