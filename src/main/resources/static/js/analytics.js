@@ -11,7 +11,7 @@ function renderStatusChart(incidents) {
       datasets: [
         {
           data: Object.values(stats),
-          backgroundColor: ["#ffcc00", "#28a745"],
+          backgroundColor: ["#013237", "#28a745"],
         },
       ],
     },
