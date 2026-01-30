@@ -17,10 +17,11 @@
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   margin-bottom: 15px;
-  width: 70%;
+  width: 50%;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+  opacity: 0.9;
 }
 .panel--accent {
   border-left: 10px solid var(#013237);
