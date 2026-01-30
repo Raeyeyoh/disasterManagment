@@ -85,9 +85,6 @@ async function loadAvailableItems() {
 }
 
 async function loadIncidents() {
-  /* Your existing loadIncidents fetch logic here */
-}
-async function loadIncidents() {
   const token = localStorage.getItem("token");
   try {
     const response = await fetch(
@@ -114,7 +111,7 @@ async function loadIncidents() {
       select.innerHTML = incidents
         .map(
           (inc) =>
-            `<option value="${inc.reportId}">${inc.title} (${inc.location})</option>`,
+            `<option value="${inc.reportId}">${inc.title} (${inc.createdAt})</option>`,
         )
         .join("");
     } else {

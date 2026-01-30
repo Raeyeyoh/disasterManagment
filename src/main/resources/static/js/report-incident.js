@@ -42,6 +42,7 @@ document
       alert("Incident Reported Successfully!");
 
       document.getElementById("incidentForm").style.display = "none";
+      document.getElementById("main-nav").style.display = "none";
       document.getElementById("post-report-actions").style.display = "block";
     }
   });

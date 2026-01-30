@@ -13,7 +13,6 @@ if (incidentId) {
   })
     .then((res) => res.json())
     .then((inc) => {
-      document.getElementById("main-title").innerText = inc.title;
       document.getElementById("display-title").innerText = inc.title;
       document.getElementById("description").innerText = inc.description;
       document.getElementById("severity").innerText = inc.severity;

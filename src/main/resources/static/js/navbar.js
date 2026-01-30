@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
   const nav = document.getElementById("main-nav");
-  const homeNav = document.getElementById("home");
+
   const userRole = localStorage.getItem("role");
 
   const links = [
-    { name: "Home", href: "home.html", roles: ["ANY"] },
+    // { name: "Home", href: "home.html", roles: ["ANY"] },
     {
       name: "Report Incident",
       href: "report-incident.html",
@@ -86,31 +86,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (nav) {
     nav.innerHTML = `
-            <ul style="display: flex; list-style: none; gap: 20px; align-items: center; background: #013237; padding: 15px; margin: 0;">
-                ${filteredLinks
-                  .map(
-                    (link) => `
-                    <li><a href="${link.href}" style="color: white; text-decoration: none;">${link.name}</a></li>
-                `,
-                  )
-                  .join("")}
-                ${notificationHtml}
-                <li><a href="index.html" id="logout-btn" onclick="localStorage.clear()" style="color: white; text-decoration: none; font-weight: bold;">Logout</a></li>
-            </ul>
-        `;
-  }
+    <ul style="display: flex; list-style: none; gap: 20px; align-items: center; background: #013237; padding: 15px; margin: 0;">
+      <li>
+        <a href="home.html">
+          <img src="../img/logo.png" alt="Home" style="width: 35px; height: 35px; margin-right: 2px;"> 
+        </a>
+      </li>
 
-  if (homeNav) {
-    homeNav.innerHTML = `
-            <ul style="display: flex; list-style: none; gap: 20px; align-items: center; background: #COE6BA; padding: 15px; margin: 0;">
-                <li><a href="home.html" style="color: #013237; text-decoration: none;"><svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+      ${filteredLinks
+        .map(
+          (link) => `
+        <li><a href="${link.href}" style="color: white; text-decoration: none;">${link.name}</a></li>
+      `,
+        )
+        .join("")}
+
+      ${notificationHtml}
+
+      <li>
+        <a href="index.html" id="logout-btn" onclick="localStorage.clear()" style="color: white; text-decoration: none; font-weight: bold;">Logout</a>
+      </li>
+    </ul>
+  `;
+  }
+  {
+    /* <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
   <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-</svg>
- Home</a></li>
-                ${notificationHtml}
-                <li><a href="index.html" onclick="localStorage.clear()" style="color: #013237; text-decoration: none;">Logout</a></li>
-            </ul>
-        `;
+</svg> */
   }
 });
 

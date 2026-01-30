@@ -8,40 +8,42 @@
     <link rel="stylesheet" href="../css/components.css" />
     <link rel="stylesheet" href="../css/utilities.css" />
   </head>
-  <body class="flex center">
-    <div class="account-container card panel--accent">
-      <nav id="home"></nav>
 
-      <h2>Account Settings</h2>
-      <div class="user-info">
-        <p><strong>Username:</strong> <span id="display-username"></span></p>
-        <p><strong>Role:</strong> <span id="display-role"></span></p>
+  <body>
+    <nav id="main-nav" class="table-head"></nav>
+    <main class="container">
+      <div class="card panel--accent">
+        <h2>Account Settings</h2>
+        <div class="user-info">
+          <p><strong>Username:</strong> <span id="display-username"></span></p>
+          <p><strong>Role:</strong> <span id="display-role"></span></p>
+        </div>
+
+        <h3>Change Password</h3>
+        <form id="changePasswordForm">
+          <input
+            type="password"
+            id="currentPassword"
+            placeholder="Current Password"
+            required
+          />
+          <input
+            type="password"
+            id="newPassword"
+            placeholder="New Password"
+            required
+          />
+          <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm New Password"
+            required
+          />
+          <button type="submit" class="btn-primary">Update Password</button>
+          <!-- <a href="home.html" class="link">home</a> -->
+        </form>
       </div>
-
-      <h3>Change Password</h3>
-      <form id="changePasswordForm">
-        <input
-          type="password"
-          id="currentPassword"
-          placeholder="Current Password"
-          required
-        />
-        <input
-          type="password"
-          id="newPassword"
-          placeholder="New Password"
-          required
-        />
-        <input
-          type="password"
-          id="confirmPassword"
-          placeholder="Confirm New Password"
-          required
-        />
-        <button type="submit" class="btn-primary">Update Password</button>
-        <!-- <a href="home.html" class="link">home</a> -->
-      </form>
-    </div>
+    </main>
     <script src="../js/account.js"></script>
     <script src="../js/navbar.js"></script>
   </body>

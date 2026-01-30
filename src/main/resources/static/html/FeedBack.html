@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../css/utilities.css" />
   </head>
   <body>
-    <nav id="home"></nav>
+    <nav id="main-nav" class="table-head"></nav>
 
     <div class="container">
       <div id="submission-section" class="card" style="display: none">
@@ -16,7 +16,7 @@
           Submit Field Report
         </h3>
         <form id="feedbackForm">
-          <div class="form-group">
+          <div class="form-group" id="admin" style="display: none">
             <label class="panel-title text-green">Select Incident:</label>
             <select id="incidentSelect" required>
               <option value="">Loading incidents...</option>
@@ -34,9 +34,7 @@
             <input type="number" id="rate" min="1" max="5" value="3" />
           </div>
 
-          <button type="submit" class="btn-primary btn-block">
-            Submit Report
-          </button>
+          <button id="Submit" class="btn-primary">Submit Report</button>
         </form>
       </div>
 

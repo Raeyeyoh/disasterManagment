@@ -210,8 +210,11 @@ public ResponseEntity<List<IncidentAcknowledgement>> getRegionalActivity(Authent
         return ResponseEntity.ok(java.util.Collections.emptyList());
     }
 
-    List<IncidentAcknowledgement> activity = acknowledgementRepository
-            .findByIncident_Region_RegionIdOrderByAcknowledgedAtDesc(admin.getRegion().getRegionId());
+  List<IncidentAcknowledgement> activity = acknowledgementRepository
+    .findByIncident_Region_RegionIdAndIncident_StatusOrderByAcknowledgedAtDesc(
+        admin.getRegion().getRegionId(), 
+        IncidentStatus.PENDING
+    );
 
     return ResponseEntity.ok(activity);
 }
@@ -255,6 +258,10 @@ public ResponseEntity<?> submitFeedback(@PathVariable Integer id, @RequestBody F
     existingLog.setSubmittedBy(currentUser);
     existingLog.setCreatedAt(java.time.Instant.now());
     feedbackRepository.save(existingLog);
+    if ("REGIONAL_ADMIN".equals(userRole)) {
+    report.setStatus(IncidentStatus.RESOLVED);
+    incidentRepository.save(report);
+}
 
     if (!userRole.equals("REGIONAL_ADMIN")) {
         IncidentAcknowledgement ack = acknowledgementRepository

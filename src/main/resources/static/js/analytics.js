@@ -11,7 +11,7 @@ function renderStatusChart(incidents) {
       datasets: [
         {
           data: Object.values(stats),
-          backgroundColor: ["#013237", "#28a745"],
+          backgroundColor: ["#0c616a", "#eaf9e7"],
         },
       ],
     },
@@ -96,6 +96,31 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Error connecting to server:", error);
   }
 });
+
+const iconsBySeverity = {
+  CRITICAL: L.icon({
+    iconUrl: "../img/red.jpg",
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+  }),
+  HIGH: L.icon({
+    iconUrl: "../img/orange.jpg",
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+  }),
+  MEDIUM: L.icon({
+    iconUrl: "../img/yellow.jpg",
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+  }),
+  LOW: L.icon({
+    iconUrl: "../img/green.jpg",
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+  }),
+};
+
 function initRegionalMap(incidents) {
   const mapContainer = document.getElementById("map");
   if (!mapContainer) return;
@@ -113,13 +138,15 @@ function initRegionalMap(incidents) {
       const coords = incident.location.split(",");
       const lat = parseFloat(coords[0]);
       const lng = parseFloat(coords[1]);
-
+      const icon = iconsBySeverity[incident.severity] || iconsBySeverity.LOW;
       if (!isNaN(lat) && !isNaN(lng)) {
-        const marker = L.marker([lat, lng])
-          .addTo(map)
-          .bindPopup(
-            `<b>Incident #${incident.reportId}</b><br>${incident.title}<br>Status: ${incident.status}`,
-          );
+        const marker = L.marker([lat, lng], { icon }).addTo(map).bindPopup(`
+  <b>${incident.title}</b><br>
+  Status: ${incident.status}<br>
+  Severity: ${incident.severity}<br>
+  Date: ${new Date(incident.createdAt).toLocaleDateString()}
+`);
+
         markers.push([lat, lng]);
       }
     }

@@ -7,33 +7,33 @@ document.addEventListener("DOMContentLoaded", () => {
   const adminFeedSection = document.getElementById("admin-feed-section");
   const feedbackContainer = document.getElementById("feedbackContainer");
   const feedbackForm = document.getElementById("feedbackForm");
+  const incidentSelectGroup = document.getElementById("admin");
+  const submitBtn = document.getElementById("Submit");
 
-  // --- 1. Handle Role-Based Visibility ---
   if (userRole === "ROLE_REGIONAL_ADMIN") {
     if (adminFeedSection) adminFeedSection.style.display = "block";
     if (submissionSection) submissionSection.style.display = "block";
+    if (incidentSelectGroup) incidentSelectGroup.style.display = "block";
+    submitBtn.innerText = "Submit & Resolve Incident";
+    submitBtn.style.backgroundColor = "#e74c3c";
     if (feedbackContainer) fetchFeedback();
   } else if (
     ["ROLE_POLICE", "ROLE_VOLUNTEER", "ROLE_REGIONAL_STAFF"].includes(userRole)
   ) {
     if (submissionSection) submissionSection.style.display = "block";
     if (adminFeedSection) adminFeedSection.style.display = "none";
+    submitBtn.innerText = "Submit Field Report";
   }
 
-  // --- 2. Handle Auto-Selection of Incident ---
   const select = document.getElementById("incidentSelect");
   if (incidentIdFromUrl) {
-    // Lock the selection to the current incident
     select.innerHTML = `<option value="${incidentIdFromUrl}" selected>Reporting for Incident #${incidentIdFromUrl}</option>`;
-    // Hide the select group row so they don't change it
     const formGroup = select.closest(".form-group");
     if (formGroup) formGroup.style.display = "none";
   } else {
-    // Fallback: If no ID in URL, load all incidents for the region
     loadIncidentsForFeedback();
   }
 
-  // --- 3. Submission Logic ---
   if (feedbackForm) {
     feedbackForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (response.ok) {
           const resultMsg = await response.text();
           alert(resultMsg);
-          window.location.href = `incidentdetail.html?id=${incidentId}`;
+          window.location.href = `home.html?id=${incidentId}`;
         } else {
           const error = await response.text();
           alert("Failed to submit: " + error);
@@ -92,7 +92,7 @@ async function loadIncidentsForFeedback() {
             ? incidents
                 .map(
                   (inc) =>
-                    `<option value="${inc.reportId}">${inc.title} (${inc.status})</option>`,
+                    `<option value="${inc.reportId}">${inc.title} (${inc.status}) (${inc.createdAt})</option>`,
                 )
                 .join("")
             : '<option value="">No active incidents in your region</option>';
@@ -103,7 +103,6 @@ async function loadIncidentsForFeedback() {
   }
 }
 
-// --- 5. Fetch Feedback (The Feed for Admins) ---
 async function fetchFeedback() {
   const token = localStorage.getItem("token");
   try {
@@ -116,14 +115,17 @@ async function fetchFeedback() {
 
     if (response.ok) {
       const feedbackLogs = await response.json();
-      renderFeedback(feedbackLogs);
+      const unresolvedLogs = feedbackLogs.filter(
+        (log) => log.report && log.report.status !== "RESOLVED",
+      );
+
+      renderFeedback(unresolvedLogs);
     }
   } catch (error) {
     console.error("Network Error:", error);
   }
 }
 
-// --- 6. Render Feedback + Resolve Button ---
 function renderFeedback(logs) {
   const container = document.getElementById("feedbackContainer");
   const userRole = localStorage.getItem("role");
@@ -131,7 +133,6 @@ function renderFeedback(logs) {
 
   container.innerHTML = logs
     .map((log) => {
-      // 1. Check if the report status is resolved
       const isResolved = log.report && log.report.status === "RESOLVED";
 
       return `
@@ -159,7 +160,6 @@ function renderFeedback(logs) {
     .join("");
 }
 
-// --- 7. Handle Resolve (Calls your Controller) ---
 async function handleResolve(id) {
   if (!confirm("Confirming this will close the incident  Proceed?")) return;
 
@@ -175,7 +175,7 @@ async function handleResolve(id) {
 
     if (response.ok) {
       alert("Incident has been officially RESOLVED.");
-      location.reload(); // Refresh to update the feed status
+      location.reload();
     } else {
       const err = await response.text();
       alert("Error: " + err);
