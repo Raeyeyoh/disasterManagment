@@ -1,0 +1,484 @@
+2.4 Proposed System 
+2.4.1 Overview
+The Disaster Management and Emergency Response System is designed to address the needs of individuals or groups affected by disasters, focusing on emergency assistance and efficient management of disaster-related data. The system will provide primarily to affected individuals’ region administrators, offering critical services such as user registration, reporting incidents, requesting help, and contacting emergency services.
+Core features 
+1.	User Registration and Authentication
+o	Secure user registration and login functionality for regional administrators.
+o	Authentication ensures only authorized access to sensitive features and data.
+2.	Incident Reporting (by Regional Administrators)
+o	Regional administrators can report various disaster incidents such as:
+	Floods
+	Fires
+	Earthquakes
+	Epidemics
+o	Each report includes:
+	Disaster type
+	Location (GPS/map-based)
+	Severity level
+	Time and date of the incident
+3.	Post-Disaster Feedback Reporting
+o	Regional administrators submit post-disaster feedback reports.
+o	These help the Disaster Risk Management (DRM) authority evaluate:
+	Response effectiveness
+	Resource adequacy
+	Lessons learned for future preparedness
+4.	Request for Help (by Regional Administrators)
+o	they can submit detailed requests for assistance, such as:
+	Medical aid
+	Food supply
+	Shelter
+o	Requests are stored, categorized, and routed to appropriate response teams.
+5.	Emergency Contacts Directory
+o	A map of nearby facilities that includes:
+	Police
+	hospitals
+6.	Resource Allocation
+o	Regional Administrators can request Resource assistance related to:
+	Medical treatment
+	Temporary housing
+	Food and water
+o	Features:
+	Admin panel for reviewing and approving requests
+7.	Central Inventory Management System (Managed by DRM)
+o	DRM manages a centralized repository of resources, including:
+	Emergency kits
+	Tents, food packages, medicine
+o	Enables tracking of incoming supplies and outgoing dispatches to regions
+8.	Regional Inventory Management System
+o	Each region maintains its own inventory 
+o	Tracks:
+	Received supplies from the DRM
+	Local distribution to victims
+	Low-stock alerts and restocking needs
+9.	User Dashboard
+o	Personalized dashboard for regional admins and admins:
+	Track help requests and their status
+	Notification center for important updates
+10.	Analytics and Reporting (for DRM & Admins)
+•	Visual dashboards with charts and reports on:
+o	Disaster frequency 
+o	Disasters that are resolved or not
+o	resource distribution summaries
+Technical Considerations:
+•	The system will be built focusing on a responsive and intuitive user interface.
+•	The backend will handle data processing, transaction management, resource management and secure communication with emergency services.
+•	The system will prioritize data security, especially regarding user information and resource transactions.
+Goals:
+•	Efficient Disaster Response:
+o	To facilitate faster and more organized disaster response by providing real-time data on affected areas and enabling users to request aid seamlessly.
+•	resource Distribution:
+o	To ensure that resources are allocated correctly and efficiently to those in need, minimizing delays in resources assistance distribution.
+•	User-Centric Experience:
+o	To offer a simple, accessible interface for users in distress, making it easy for them to navigate and request necessary services during a disaster.
+2.4.2 Requirement Definition
+2.4.2.1 Functional Requirements
+1. Regional and City Administrators Registration and Authentication
+•	FR1: The system must allow regional and city administrators to register by providing their personal details, including full name, phone number, email, and region/city.
+•	FR2: The system must allow registered users to view past disasters and managements in their region.
+•	FR3: The system must allow users to reset their passwords securely in case they forget their login credentials.
+2. Incident Reporting
+•	FR4: The system must allow regional administrators to report disaster incidents (e.g., floods, fires, earthquakes) by specifying the location, severity level, number of affected individuals, and date/time.
+•	FR5: The system must allow incident reports to be categorized and filtered by type, date, or region for easier access and analysis.
+•	FR7: The system must enable DRM-level administrators to review, approve, or flag incident reports for further verification.
+3. Emergency Contacts
+•	FR8: The system must maintain a directory of emergency contacts, including police, fire services, hospitals, and volunteer groups, organized by region.
+•	FR9: The system must allow users to initiate direct communication (via email or in-app notification) with listed emergency contacts.
+•	FR10: The system must allow emergency contacts to update or manage emergency contact information in real time.
+4. resource Allocation Feature
+•	FR11: The system must allow regional administrators to submit resource assistance requests, specifying the type (e.g., medical aid, food, shelter) and the requested amount.
+•	FR13: The system must log and track all resource transactions, including request details, approval status, history.
+•	FR14: The system must provide administrators with a dashboard to view, filter, and generate reports incidents feedback.
+5. Data Management and System Administration
+•	FR15: The system must store all incident reports, user data, and emergency contact details in a secure and encrypted database.
+•	FR16: The system must provide different levels of administrative access to manage users, review incident reports, and oversee regional inventories.
+•	FR17: The system must allow authorized personnel to edit or delete outdated or incorrect contact records.
+•	FR18: The system must generate periodic reports summarizing incidents, and response performance.
+2.4.2.5 Non-Functional Requirements:
+1.	Performance:
+o	NFR1: The system must be responsive.
+o	NFR2: The system should be capable of handling up to many concurrent actors during a disaster.
+2.	Security:
+o	NFR3: The system must ensure data security through encryption of sensitive user data (e.g., passwords).
+o	NFR4: The system must have user authentication mechanisms to prevent unauthorized access.
+3.	Usability:
+o	NFR10: The system must have an intuitive user interface that is easy to navigate for users under stress, with clear instructions and simple workflows.
+4.	Compatibility:
+o	NFR12: The system must be compatible with smart phone devices, ensuring proper functionality across different screen sizes.
+5.	Maintainability:
+o	NFR14: The system should be easy to maintain and update with regular bug fixes and improvements.
+2.4.3 System Models 
+2.4.3.1 Use-case Model
+2.4.3.1.1 Actor description
+1.	Administrators / Central Authority
+o	Manage central inventory and resources.
+o	Allocate resources.
+o	View incident analytics (graphs).
+o	Review police stations and volunteer information.
+o	Authenticate users and enforce role-based access.
+o	Generate analytics and reports.
+2.	Regional Administrators / Coordinators
+o	Submit incident reports.
+o	Request police assistance, or volunteers.
+o	Submit feedback and post-disaster reports.
+3.	Volunteers / Community Groups
+o	Register with location data (e.g., GPS tracking).
+o	Receive and respond to assistance requests.
+o	Submit feedback on incidents.
+4.	Police 
+o	Receive and act on assistance requests.
+o	Provide incident reports.
+5.	System Backend
+o	Store and manage data (incidents, users, resources, feedback).
+o	Track GPS locations (for volunteers/incidents).
+CHAPTER 3
+3.1 Introduction
+In the context of the Disaster Management and Emergency Response System (DMERS), system design ensures that all system components—from data handling and user interfaces to communication protocols and database structures—work seamlessly to meet the needs of emergency response scenarios.
+This section introduces the key concepts of system design, including architectural design, data flow modeling, and interface specifications. It outlines the overall structure of the proposed DMERS application, defines how system components interact, and highlights the rationale behind design decisions. A well-thought-out system design not only enhances system performance and reliability but also ensures scalability and maintainability—essential traits in a system that must operate under crisis conditions.
+3.2 Purpose of the System
+The primary purpose of the Disaster Management and Emergency Response System (DMERS) is to provide a centralized, efficient, and user-friendly platform for managing and coordinating disaster-related information and resources. The system aims to support authorities, emergency responders, and affected individuals by ensuring rapid information dissemination, accurate tracking of incidents, and effective communication during emergencies.
+DMERS is designed to streamline the reporting of disasters, allocate resources efficiently, and facilitate collaboration among various stakeholders involved in disaster response. By integrating features such as user registration, incident reporting, and resource management, the system reduces manual workload and enhances the speed and reliability of response efforts.
+3.3 Design Goals
+The design of DMERS is guided by several key goals to ensure the system is robust, responsive, and suitable for use in high-stress, time-sensitive disaster situations. These goals include:
+•	Usability: The system should offer a simple, intuitive interface usable by both technical and non-technical users under pressure.
+•	Security: DMERS must ensure the confidentiality, integrity, and availability of data. This includes role-based access control, secure authentication, and encryption protocols.
+•	Performance: The system should respond quickly to user actions and be capable of processing and retrieving large volumes of data in real time.
+•	Scalability: It should handle increasing loads more users, more data, or expanding coverage without performance degradation.
+•	Reliability: DMERS must operate continuously and dependably, even in challenging network or power conditions.
+•	Maintainability: The system should follow clean architecture principles, allowing easy updates, debugging, and integration of new features
+3.4 Current software architecture
+No digital system applicable
+3.5 Proposed Software Architecture
+DMERS follows a three-tier architecture:
+•	Presentation Layer: Developed with HTML, CSS, and JavaScript to provide a responsive and user-friendly web interface.
+•	Application Layer: Developed using java this layer handles business logic, data processing.
+•	Data Layer: postgresql is used to store structured data such as user records, reports, inventory data.
+RESTful APIs ensure efficient and secure data communication between layers.
+Architecture Benefits:
+•	Usability: The lightweight frontend ensures ease of use.
+•	Security: jwt, secure login, and role-based access.
+•	Performance: Efficient logic processing and asynchronous communication.
+•	Scalability: Modular components support expansion.
+•	Reliability: Clear separation of concerns supports stable operation.
+•	Maintainability: MVC pattern and standard tech stack allow smooth development and troubleshooting.
+3.5.1 Subsystem Decomposition
+DMERS is broken into the following major subsystems:
+1.	User Management Subsystem
+o	Handles registration, login, roles.
+o	Components: Forms, authentication.
+2.	Incident Reporting Subsystem
+o	Allows admins to report incidents, location, severity.
+o	Depends on: User Management, Database.
+3.	Help Request Subsystem
+o	Enables regional admins to request help (food, medical).
+o	Manages status tracking.
+4.	Resource and Inventory Management
+o	Manages central and regional stock.
+o	Supports alerts and history logging.
+5.	Emergency Contact Directory(map)
+o	Displays essential location info by region.
+6.	Admin Dashboard Subsystem
+o	For DRM use. Manages reports, users, and analytics.
+7.	Analytics and Reporting
+o	Generates trends, summaries, and visualizations.
+8.	Database Subsystem
+o	Central data store using postgresql.
+o	Supports all CRUD operations and subsystem data needs.
+.5.4 Persistent Data Management
+Types of Data Stored:
+1.	User Information
+o	Name, contact info, encrypted passwords, roles.
+2.	Incident Reports
+o	Type, location, severity, timestamp.
+3.	Help Requests
+o	Category, status, timestamps, user info.
+4.	Inventory and Resources
+o	Items, stock, movement history, allocation.
+5.	Contacts and Institutions
+o	Emergency contacts with location and email info.
+6.	Analytics and Feedback
+o	Admin feedback, usage stats, data logs.
+Database Technology:postgresql
+•	Chosen for its reliability, SQL support, and open-source availability.
+Data Access and Integrity:
+•	CRUD via service layers
+•	Role-based access enforced
+•	Transactions ensure consistency (especially for inventory)
+Backup and Recovery:
+•	Daily automated backups (stored securely)
+•	7-day versioning
+•	Optional incremental backups
+•	Recovery via restoration scripts and rollback plans
+3.5.5 Detailed Database Design
+3.5.5.1 Relational Tables (normalized)
+Users
+•	user_id INT (Primary Key)
+•	username VARCHAR(50) (Unique, Not Null)
+•	password_hash VARCHAR(255) (Not Null)
+•	name VARCHAR(100) (Not Null)
+•	contact VARCHAR(20) (Not Null)
+•	location VARCHAR(100)
+•	status ENUM('Pending','Approved','Suspended') (Not Null)
+•	region_id INT (Foreign Key to Regions)
+•	created_at TIMESTAMP (Not Null)
+Roles
+•	role_id INT (Primary Key)
+•	role_name VARCHAR(50) (Not Null)
+•	description TEXT
+Permissions
+•	permission_id INT (Primary Key)
+•	permission_name VARCHAR(50) (Not Null)
+•	description TEXT
+Role-Permission Mapping
+•	role_id INT (Primary Key, Foreign Key to Roles)
+•	permission_id INT (Primary Key, Foreign Key to Permissions)
+UserRoles (User-Role Mapping)
+•	user_id INT (Primary Key, Foreign Key to Users)
+•	role_id INT (Primary Key, Foreign Key to Roles)
+•	assigned_at TIMESTAMP (Not Null)
+Regions
+•	region_id INT (Primary Key)
+•	region_name VARCHAR(100) (Not Null)
+•	code VARCHAR(10)
+•	risk_level VARCHAR(10)
+
+CentralInventory
+•	item_id INT (Primary Key)
+•	item_name VARCHAR(100) (Not Null)
+•	quantity INT (Not Null)
+•	type ENUM('Medical','Food','Equipment','Other') (Not Null)
+•	unit VARCHAR(20)
+RegionalInventory
+•	item_id INT (Primary Key)
+•	region_id INT (Primary Key, Foreign Key to Regions)
+•	item_name VARCHAR(100) (Not Null)
+•	quantity INT (Not Null)
+•	type ENUM('Medical','Food','Equipment','Other') (Not Null)
+•	unit VARCHAR(20)
+InventoryTransferRequests
+•	request_id INT (Primary Key)
+•	region_id INT (Foreign Key to Regions)
+•	item_name VARCHAR(100) (Not Null)
+•	quantity INT (Not Null)
+•	status ENUM('Pending','Approved','Rejected','Fulfilled')
+•	requested_by INT (Foreign Key to Users)
+•	created_at TIMESTAMP (Not Null)
+ResourceAllocations
+•	allocation_id INT (Primary Key)
+•	request_id INT (Foreign Key to InventoryTransferRequests)
+•	region_id INT (Foreign Key to Regions)
+•	item_name VARCHAR(100) (Not Null)
+•	quantity INT (Not Null)
+•	allocated_by INT (Foreign Key to Users)
+•	allocated_at TIMESTAMP (Not Null)
+IncidentReports
+•	report_id INT (Primary Key)
+•	region_id INT (Foreign Key to Regions)
+•	title VARCHAR(200) (Not Null)
+•	description TEXT (Not Null)
+•	severity ENUM('Low','Medium','High','Critical') (Not Null)
+•	reported_by INT (Foreign Key to Users)
+•	status ENUM('Open','In Progress','Resolved')
+•	created_at TIMESTAMP (Not Null)
+•	severity string (Not Null)
+Feedback
+•	feedback_id INT (Primary Key)
+•	report_id INT (Foreign Key to IncidentReports)
+•	region_id INT (Foreign Key to Regions)
+•	submitted_by INT (Foreign Key to Users)
+•	message TEXT (Not Null)
+•	rating INT
+•	created_at TIMESTAMP (Not Null)
+Notifications
+•	notification_id INT (Primary Key)
+•	user_id INT (Foreign Key to Users)
+•	message TEXT (Not Null)
+•	type ENUM('Request','Approval','Meeting','StatusUpdate')
+•	is_read BOOLEAN (Not Null)
+•	created_at TIMESTAMP (Not Null)
+victim {
+•	victimId INT [pk]
+•	fullName VARCHAR(50)
+•	nationalId; VARCHAR(50) [not null]
+•	region  Fk
+•	registeredAt TIMESTAMP
+}
+3.5.6 Access Control and Security
+Security Measures
+1.	Data Privacy and Security:
+o	All sensitive data (passwords) encrypted 
+o	Regular security audits and penetration testing
+o	Compliance with data protection regulations
+2.	User Authentication:
+o	Strong password policies (minimum length, complexity)
+o	Multi-factor authentication for sensitive operations
+o	Password hashing using bcrypt 
+o	token invalidation
+3.	Authorization:
+o	Role-Based Access Control (RBAC) system
+o	Fine-grained permissions managed through role-permission map table
+o	Access logs for sensitive operations
+4.	Data Encryption:
+o	Bycrypt hashing for sensitive data at rest
+5.	Additional Measures:
+o	Input validation to prevent SQL injection
+o	CSRF protection for web forms
+6.	Audit Trails:
+o	All sensitive operations logged (who did what when)
+7.	Backup and Recovery:
+o	Regular backup testing and recovery drills
+3.5.7 Global Software Control
+Control Architecture
+The Disaster Management and Response System follows an event-driven, client-server architecture where the Android application (client) interacts with the central server via RESTful APIs.
+Request Flow
+•	User-initiated actions such as reporting an incident, allocating resources, or submitting a post-disaster report trigger specific functions in the application.
+•	Each major action initiates an HTTP request to the corresponding Web API endpoint.
+•	The system uses asynchronous calls to prevent UI blocking and ensure smooth user experience.
+•	Response handling includes success feedback, error messages, and data synchronization.
+
+Subsystem Synchronization
+•	The system is divided into functional modules such as:
+o	Incident Reporting
+o	Resource Distribution
+o	Victim Registration
+o	Post-Disaster Reporting
+o	Police Coordination
+o	Volunteer Coordination
+o	Analytics view statical, chart graphs
+Each module interacts with shared components such as the authentication system, network layer, and local storage (for offline caching).
+•	Modules operate independently, but synchronize data through:
+o	API integration with the backend (central database)
+o	Broadcast receivers or LiveData observers (within the app) to update dependent modules on changes (e.g., updated inventory after allocation).
+o	Timestamped updates to resolve data conflicts and ensure consistency.
+
+3.5.8 Boundary Conditions
+1. Startup/Shutdown
+•	Cold Start:
+o	Database connection pooling initialized 
+o	Cache warmup 
+o	Health checks verify all subsystems before accepting traffic
+•	Graceful Shutdown:
+o	Database connections properly closed
+ 
+                                               Chapter 4 
+           Implementation and testing
+4.1 Technologies and server
+4.1.1	Server
+Server Setup and Configuration
+The Disaster Management System backend is done using a Spring Boot server, which acts as the central application server for handling business logic, security, and data persistence.
+The server is configured with the following key components:
+•	Spring Boot Framework for rapid application development and dependency management.
+•	Embedded Apache Tomcat Server, eliminating the need for external server installation and enabling easy deployment.
+•	RESTful APIs to facilitate communication between the frontend, backend services, and the Python-based AI module.
+•	Spring Security with JWT Authentication to manage user authentication and role-based authorization.
+•	PostgreSQL Database Integration for reliable storage of incidents, users, regions, inventory, and requests.
+Configuration Details
+•	Application configuration is managed through application.properties, including:
+o	Database connection settings (PostgreSQL URL, username, password)
+o	JPA and Hibernate configurations
+o	Security and JWT settings
+•	The server follows a layered architecture consisting of:
+o	Controllers (API endpoints)
+o	Services (business logic and AI integration)
+o	Repositories (data access layer)
+•	The server also integrates with an external Python Machine Learning module via subprocess execution to obtain severity predictions during incident reporting.
+4.1.2 Database
+•	What is it? The persistent storage for incidents, users, and feedback logs.
+•	Used: postgresql  (Relational Database).
+•	Why? It ensures data integrity through ACID compliance, which is critical when tracking national disaster reports.
+4.1.3 MVC Design Pattern
+Overview
+The Model–View–Controller (MVC) design pattern is an architectural pattern that separates an application into three interconnected components: Model, View, and Controller. This separation improves maintainability, scalability, and clarity of the system.
+Components Used in the System
+•	Model
+Represents the data layer of the system.
+In this project, the Model includes:
+o	Entity classes such as IncidentReport, User, Region, InventoryTransferRequest
+o	Repository interfaces (JPA Repositories) responsible for database operations
+•	View
+Represents the user interface.
+The View is implemented as a decoupled frontend using:
+o	HTML, CSS, and JavaScript
+o	Dynamic dashboards and forms for incident reporting, inventory requests, and administration
+•	Controller
+Handles user requests and application logic.
+Controllers in this system are implemented using:
+o	Spring MVC REST Controllers
+o	Annotated endpoints (@RestController, @GetMapping, @PostMapping)
+o	Role-based access control using Spring Security
+Technology Used
+•	Spring MVC for implementing the Controller layer
+•	Decoupled Frontend Architecture, where the frontend communicates with the backend exclusively through REST APIs
+4.1.4 Back End
+4.1.4.1 API Development
+ RESTful endpoints for frontend-backend communication.
+•	Used: @RestController.
+•	Code:
+.1.4.2 Database Interactions & ORM
+•	What: Managing database operations using object-oriented programming instead of manual SQL queries.
+•	Used: Spring Data JPA with Hibernate (ORM implementation).
+•	Implementation: ORM maps Java objects directly to relational database tables, reducing boilerplate SQL, improving maintainability, and accelerating development.
+•	 We utilized Spring Data JPA Custom Queries with Join clauses. Before persisting a new record into the user_roles table, the system performs a cross-check between the Users table (filtering by region_id) and the Roles table (filtering by role_name).
+4.1.4.3 Authentication and Authorization
+•	 Verifying user identity and checking their permissions.
+•	Used: Spring Security & JWT
+•	Stateless tokens allow the Super Admin and Regional Admins to stay logged in securely without server-side sessions.
+4.1.4.4 Security
+•	 Protecting backend API endpoints from unauthorized access and ensuring that only permitted users can perform sensitive operations.
+•	 Used: Role-Based Access Control (RBAC) implemented with Spring Security and JWT authentication.
+•	RBAC ensures that users can only access features relev
+•	Code:
+4.1.4.5 special algorithms used
+A custom weighted scoring algorithm is used to calculate inventory priority. The algorithm considers region risk, item type importance, quantity, and item age. Each factor is weighted differently and summed into a total score. Thresholds are applied to classify the total score into HIGH, MEDIUM, or LOW priority levels.”
+4.1.5 Third-Party API Integration
+4.1.5.1 Geospatial Service (OpenStreetMap Overpass API)
+Instead of a static facility table, the system integrates the Overpass API to provide real-time locations of critical infrastructure.
+•	Logic: Uses specialized queries (node["amenity"="hospital"]) to fetch JSON data for Ethiopia.
+•	Visualization: Data is dynamically rendered on a Leaflet map using custom-colored markers (Green for Medical, Blue for Police).
+4.1.5.2 Geographic/GPS Service
+•	A service used to capture the precise geographic coordinates (latitude and longitude) of an incident at the moment it is reported.
+•	Used: HTML5 Geolocation API (Native Browser API).
+•	Why? In disaster management, speed and accuracy are critical. By using the device's native GPS capabilities, the system removes human error and the need for the user to know their exact street address. This provides the emergency response team with precise coordinates for navigation.
+•	Implementation: The frontend triggers a permission request to the user's browser. Once granted, it retrieves the coordinates and automatically populates the location field in the reporting form.
+4.1.5.3 Notification & Communication (Email/Alerts)
+Implemented via Spring Boot Starter Mail to notify Regional Admins when a "critical" incident is reported by a volunteer in their specific region. And in account approval 
+•	Used: JavaMailSender (Spring Mail) with Gmail SMTP.
+•	 It ensures that staff, police, admins and volunteers are informed even when they aren't actively looking at the dashboard
+4.1.6.2 Frontend Logic and Security
+•	Security: Implemented JWT (JSON Web Token) interceptors. The UI conditionally renders buttons (e.g., "Report") only if the user has the STAFF role.
+•	Filtering: Built-in JS filters allow Regional Admins to view only PENDING cases, reducing cognitive load.
+•	Responsiveness: Used CSS Flexbox and a grid system to ensure charts stack vertically on mobile devices while staying side-by-side on desktop.
+4.1.6.3 API Integration
+•	Connecting the UI to the data.
+•	Used: Fetch API (Async/Await).
+•	RESTful Consumption: Used the Fetch API to connect the frontend to the Spring Boot backend.
+•	Data Binding: Real-time synchronization between the PostgreSQL database and Leaflet markers to ensure the map always reflects current reports.
+•	Code:
+4.1.3 Other Technologies
+4.1.3.1 Artificial Intelligence (Python severity Prediction Module)
+Technology Stack:
+Python, Scikit-learn, Joblib
+This module provides severity prediction support for reported incidents. It analyzes structured attributes related to incidents and regional conditions. The predictions assist administrators in making informed prioritization decisions.
+Implementation:
+The machine learning model was trained using Scikit-learn and persisted using Joblib for reproducibility and portability. During execution, the Java backend invokes a Python prediction script via a subprocess call, passing input parameters dynamically.
+The Python script loads the saved model and encoders, performs severity prediction, and returns a standardized severity level through standard output. This output is captured by the Java backend and integrated into the incident processing workflow and administrative dashboards.
+using the trained model, and returns the predicted severity level to the Java application via standard output.
+The returned prediction is then: Used within the backend for analysis, Displayed on the Admin Dashboard, Considered as a decision-support mechanism, not an automated enforcement tool
+4.1 Testing
+4.1.1 Unit Testing
+Unit testing focused on verifying the smallest parts of the application (individual methods and classes) in isolation.
+•	Tools Used: * JUnit 5: The primary framework for Java unit tests.
+
+4.1.2 Integration Testing
+Integration testing verified that different modules of the DMS (Backend, Frontend, AI, and External APIs) work together correctly.
+•	Integration Points:
+o	Spring Boot ↔ PostgreSQL: Ensuring the IncidentReport entity maps correctly to the database columns.
+o	Frontend ↔ Overpass API: Verifying that the JavaScript fetch call correctly sends GPS coordinates to OpenStreetMap and receives valid JSON markers.
+o	Java ↔ Python: Testing the ProcessBuilder bridge to ensure data is passed to the AI script and the prediction is returned to the UI.
+•	Tools Used: * Postman: To test API endpoints and verify JSON response structures.
+4.1.3 System Testing
+System testing evaluated the complete, integrated system's compliance with the functional and non-functional requirements.
+4.1.3.1 Security Testing
+•	Authentication: Verified that users cannot access the /report endpoint without a valid JWT Token.
+•	Authorization (RBAC): Tested that a user with the USER role cannot access Regional Admin dashboards.
+•	Input Validation: Ensured that the system prevents SQL Injection by using JPA Repository parameterized queries.
+•	CORS Testing: Verified that only authorized IP addresses (on the same LAN) can make requests to the backend API.

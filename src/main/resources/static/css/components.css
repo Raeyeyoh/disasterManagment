@@ -8,7 +8,20 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   margin-bottom: 15px;
 }
-
+.card1 {
+  background: white;
+  padding-top: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 15px;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
 .panel--accent {
   border-left: 10px solid var(#013237);
 }
@@ -140,6 +153,21 @@ input[readonly] {
 .card-slider {
   overflow: hidden;
   width: 100%;
+  position: relative;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
 }
 
 .card-track {
