@@ -40,22 +40,37 @@ public class RegionalInventoryController {
     @GetMapping("/stock")
     @PreAuthorize("hasAuthority('ROLE_REGIONAL_ADMIN')")
     public ResponseEntity<?> getMyStock(Authentication auth) {
+        System.out.println(auth.getAuthorities());
         User user = userRepository.findByUsername(auth.getName()).orElseThrow();
-        return ResponseEntity.ok(inventoryRepository.findById_RegionId(user.getRegion().getRegionId()));
+        return ResponseEntity.ok(inventoryRepository.findById_RegionIdAndQuantityGreaterThan(
+    user.getRegion().getRegionId(), 0
+)
+);
     }
 
-    @PostMapping("/request/submit")
-    @PreAuthorize("hasAuthority('ROLE_REGIONAL_ADMIN')")
-    public ResponseEntity<?> createRequest(@RequestBody InventoryTransferRequest request, Authentication auth) {
-        User admin = userRepository.findByUsername(auth.getName()).orElseThrow();
-        request.setRequestedBy(admin);
-        request.setRegion(admin.getRegion());
-        request.setStatus(RequestStatus.PENDING);
-        return ResponseEntity.ok(requestRepository.save(request));
+@PostMapping("/request/submit")
+@PreAuthorize("hasAuthority('ROLE_REGIONAL_ADMIN')")
+public ResponseEntity<?> createRequest(@RequestBody InventoryTransferRequest request, Authentication auth) {
+    User admin = userRepository.findByUsername(auth.getName()).orElseThrow();
+
+    if (!request.getItemType().getAllowedUnits().contains(request.getUnit())) {
+        return ResponseEntity.badRequest().body("Invalid unit for item type " + request.getItemType());
     }
+
+    request.setRequestedBy(admin);
+    request.setRegion(admin.getRegion());
+    request.setStatus(RequestStatus.PENDING);
+    return ResponseEntity.ok(requestRepository.save(request));
+}
+
+
 
     @GetMapping("/requests")
+@PreAuthorize("hasAuthority('ROLE_REGIONAL_ADMIN')")
+
     public ResponseEntity<List<InventoryTransferRequest>> getRequests(Authentication auth) {
+        System.out.println(auth.getAuthorities());
+
         String roles = auth.getAuthorities().toString();
         if (roles.contains("ROLE_SUPER_ADMIN")) {
             return ResponseEntity.ok(requestRepository.findAll());

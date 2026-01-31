@@ -4,27 +4,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const userRole = localStorage.getItem("role");
 
   const links = [
-    // { name: "Home", href: "home.html", roles: ["ANY"] },
     {
       name: "Report Incident",
       href: "report-incident.html",
       roles: ["ROLE_REGIONAL_STAFF"],
     },
-    {
-      name: "feed-back",
-      href: "FeedBack.html",
-      roles: ["ROLE_REGIONAL_ADMIN"],
-    },
-    {
-      name: "response-view",
-      href: "response-dashboard.html",
-      roles: ["ROLE_REGIONAL_ADMIN"],
-    },
-    {
-      name: "aid Distribution",
-      href: "Distribution.html",
-      roles: ["ROLE_REGIONAL_ADMIN", "ROLE_REGIONAL_STAFF"],
-    },
+
     {
       name: "View Incident",
       href: "view-incident.html",
@@ -60,12 +45,17 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       name: "Manage Users",
       href: "manage-users.html",
-      roles: ["ROLE_SUPER_ADMIN"],
+      roles: ["ROLE_SUPER_ADMIN", "ROLE_REGIONAL_ADMIN"],
     },
     {
       name: "Analytics",
       href: "Analytics.html",
       roles: ["ROLE_SUPER_ADMIN", "ROLE_REGIONAL_ADMIN"],
+    },
+    {
+      name: "Feed-Back",
+      href: "FeedBack.html",
+      roles: ["ROLE_REGIONAL_ADMIN"],
     },
   ];
 
@@ -73,7 +63,10 @@ document.addEventListener("DOMContentLoaded", () => {
     (link) => link.roles.includes("ANY") || link.roles.includes(userRole),
   );
 
-  const notificationHtml = `
+  const notificationHtml =
+    userRole === "ROLE_SUPER_ADMIN"
+      ? ""
+      : `
         <li style="position: relative; margin-left: auto; margin-right: 20px;">
             <button id="notif-bell" onclick="toggleNotifDropdown()" style="background: none; border: none; cursor: pointer; font-size: 20px; position: relative;">
                 🔔 <span id="notif-count" style="background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; position: absolute; top: -5px; right: -5px; display: none;">0</span>
@@ -110,9 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
   `;
   }
   {
-    /* <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
-  <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-</svg> */
   }
 });
 
@@ -167,9 +157,9 @@ async function fetchNotifications() {
               : "1px solid #eee";
 
             return `
-              <li style="border-bottom: 1px solid #eee; padding: 12px; opacity: 0.9; background-color: ${bgColor}; border-left: ${borderLeft};">
-                  <a href="#" onclick="openIncident(${n.referenceId}, ${n.notificationId})"
-                     style="text-decoration: none; color: #333; display: block;">
+              <li id="notif-${n.notificationId}"style="border-bottom: 1px solid #eee; padding: 12px; opacity: 0.9; background-color: ${bgColor}; border-left: ${borderLeft};">
+                 <a href="#" onclick="handleNotificationClick(${n.notificationId}, ${n.referenceId})" style="text-decoration: none; color: #333; display: block;">
+
                       <div style="font-weight: ${isUrgent ? "bold" : "normal"}; font-size: 13px; margin-bottom: 3px;">
                         ${n.message}
                       </div>
@@ -241,4 +231,23 @@ async function sendAcknowledgement(incidentId, status) {
   } catch (err) {
     console.error("Failed to update acknowledgement status", err);
   }
+}
+function handleNotificationClick(notificationId, incidentId) {
+  const role = localStorage.getItem("role");
+
+  // Always mark as read
+  markAsRead(notificationId);
+
+  // REGIONAL ADMIN → just dismiss
+  if (role === "ROLE_REGIONAL_ADMIN") {
+    removeNotificationFromUI(notificationId);
+    return;
+  }
+
+  // Others → normal behavior
+  window.location.href = "incidentdetail.html?id=" + incidentId;
+}
+function removeNotificationFromUI(notificationId) {
+  const item = document.getElementById("notif-" + notificationId);
+  if (item) item.remove();
 }

@@ -1,6 +1,24 @@
+const itemTypeSelect = document.getElementById("reqItemType");
+const unitSelect = document.getElementById("reqUnit");
 document.addEventListener("DOMContentLoaded", () => {
   loadLocalStock();
   loadRequestHistory();
+
+  itemTypeSelect.addEventListener("change", () => {
+    const selectedType = itemTypeSelect.value;
+    const units = {
+      FOOD: ["KG", "LITER", "BAG"],
+      MEDICAL: ["PIECE", "BOX", "LITER"],
+      EQUIPMENT: ["PIECE", "BOX"],
+      OTHER: ["PIECE", "BAG", "BOX"],
+    };
+
+    unitSelect.innerHTML = units[selectedType]
+      .map((u) => `<option value="${u}">${u}</option>`)
+      .join("");
+  });
+
+  itemTypeSelect.dispatchEvent(new Event("change"));
 });
 
 const token = localStorage.getItem("token");
@@ -13,21 +31,26 @@ async function loadLocalStock() {
         headers: { Authorization: `Bearer ${token}` },
       },
     );
+
+    const LOW_STOCK_THRESHOLD = 10;
     const data = await res.json();
+
     const table = document.getElementById("local-stock-table");
 
     table.innerHTML = data
-      .map(
-        (item) => `
-            <tr>
-                <td>${item.itemName}</td>
-                <td>${item.quantity}</td>
-                <td>${item.type}</td>
-                <td>${item.unit || "N/A"}</td>
-                <td>${new Date(item.lastUpdated).toLocaleString()}</td>
-            </tr>
-        `,
-      )
+      .map((item) => {
+        const isLowStock = item.quantity <= LOW_STOCK_THRESHOLD;
+
+        return `
+          <tr class="${isLowStock ? "low-stock" : ""}">
+            <td>${item.itemName}</td>
+            <td>${item.quantity}</td>
+            <td>${item.type}</td>
+            <td>${item.unit || "N/A"}</td>
+            <td>${new Date(item.lastUpdated).toLocaleString()}</td>
+          </tr>
+        `;
+      })
       .join("");
   } catch (err) {
     console.error("Error loading local stock:", err);
@@ -53,6 +76,7 @@ async function submitSupplyRequest() {
           itemName,
           quantity: parseInt(quantity),
           itemType,
+          unit: unitSelect.value.toUpperCase(),
         }),
       },
     );
@@ -87,6 +111,8 @@ async function loadRequestHistory() {
                 <td>${new Date(req.createdAt).toLocaleDateString()}</td>
                 <td>${req.itemName}</td>
                 <td>${req.quantity}</td>
+                  <td>${req.unit}</td>
+
                 <td>${req.itemType}</td>
                 <td style="color: ${req.status === "APPROVED" ? "green" : "orange"}; font-weight: bold;">
                     ${req.status}

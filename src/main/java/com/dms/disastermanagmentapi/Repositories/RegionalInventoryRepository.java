@@ -12,4 +12,6 @@ import com.dms.disastermanagmentapi.entities.RegionalInventoryId;
 public interface RegionalInventoryRepository extends JpaRepository<RegionalInventory, RegionalInventoryId> {
     List<RegionalInventory> findById_RegionId(Integer regionId);
     Optional<RegionalInventory> findByRegion_RegionIdAndItemName(Integer regionId, String itemName);
+        List<RegionalInventory> findById_RegionIdAndQuantityGreaterThan(Integer regionId, int quantity);
+
 }

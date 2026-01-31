@@ -9,6 +9,7 @@ import java.time.Instant;
 import com.dms.disastermanagmentapi.enums.ItemType;
 import com.dms.disastermanagmentapi.enums.PriorityLevel;
 import com.dms.disastermanagmentapi.enums.RequestStatus;
+import com.dms.disastermanagmentapi.enums.Unit;
 
 @Entity
 @Table(name = "inventorytransferrequests")
@@ -23,6 +24,9 @@ public class InventoryTransferRequest {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "region_id")
     private Region region;
+    @Enumerated(EnumType.STRING)
+private Unit unit;
+
 
     @Column(name = "item_name", length = 100, nullable = false)
     private String itemName;
@@ -46,5 +50,6 @@ private PriorityLevel priority;
     @Enumerated(EnumType.STRING)
     @Column(name = "item_type", nullable = false)
 private ItemType itemType;
-
+ public Unit getUnit() { return unit; }
+    public void setUnit(Unit unit) { this.unit = unit; }
 }

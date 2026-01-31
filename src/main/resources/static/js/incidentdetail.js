@@ -2,7 +2,11 @@ const params = new URLSearchParams(window.location.search);
 const incidentId = params.get("id");
 const token = localStorage.getItem("token");
 const currentUserId = localStorage.getItem("userId");
+const role = localStorage.getItem("role");
 
+if (role === "ROLE_REGIONAL_STAFF") {
+  document.getElementById("btn-distribute").style.display = "block";
+}
 if (incidentId) {
   fetch(`http://localhost:8080/api/incidents/${incidentId}`, {
     method: "GET",
@@ -23,7 +27,6 @@ if (incidentId) {
       window.incidentLat = lat;
       window.incidentLng = lng;
 
-      // Calculate distance
       navigator.geolocation.getCurrentPosition((pos) => {
         const d = calculateDistance(
           pos.coords.latitude,
@@ -44,7 +47,7 @@ async function checkMyStatus() {
   const btnAccept = document.getElementById("btn-accept");
   const actionGroup = document.getElementById("action-group");
 
-  console.log("Checking status for User:", currentUserId); // DEBUG
+  console.log("Checking status for User:", currentUserId);
 
   try {
     const res = await fetch(
@@ -56,9 +59,8 @@ async function checkMyStatus() {
 
     if (res.ok) {
       const data = await res.json();
-      console.log("Status Data received:", data); // DEBUG
+      console.log("Status Data received:", data);
 
-      // Ensure data is an array before using .find()
       const acks = Array.isArray(data) ? data : [data];
 
       const myAck = acks.find(
@@ -106,7 +108,6 @@ async function sendAcknowledgement(id, status) {
   return true;
 }
 
-// --- 4. Utility Functions ---
 function calculateDistance(lat1, lon1, lat2, lon2) {
   const R = 6371;
   const dLat = deg2rad(lat2 - lat1);

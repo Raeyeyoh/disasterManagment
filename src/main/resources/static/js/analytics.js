@@ -82,6 +82,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const incidents = await response.json();
       if (role === "ROLE_REGIONAL_ADMIN") {
         initRegionalMap(incidents);
+        loadAidDistributionChart();
       }
       if (role === "ROLE_SUPER_ADMIN") {
         renderStatusChart(incidents);
@@ -318,4 +319,45 @@ function downloadChart(chartId, filename) {
   link.download = filename;
 
   link.click();
+}
+async function loadAidDistributionChart() {
+  const token = localStorage.getItem("token");
+
+  const res = await fetch(
+    "http://localhost:8080/api/distribution/analytics/summary",
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    },
+  );
+
+  if (!res.ok) return;
+
+  const data = await res.json();
+
+  const labels = data.map((row) => row[0]); // itemName
+  const quantities = data.map((row) => row[1]); // total quantity
+
+  new Chart(document.getElementById("aidDistributionChart"), {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [
+        {
+          label: "Aid Distributed (Total Quantity)",
+          data: quantities,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: "Aid Distribution by Item",
+        },
+      },
+    },
+  });
 }

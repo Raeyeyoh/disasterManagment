@@ -44,7 +44,7 @@ function renderCards(data) {
       acc[incidentId] = {
         title: current.incident.title,
         severity: current.incident.severity,
-        createdAt: current.incident.createdAt.toLocaleDateString(),
+        createdAt: current.incident.createdAt,
         responders: [],
       };
     }
@@ -56,8 +56,8 @@ function renderCards(data) {
     .map(
       (group) => `
     <div class="incident-card">
-        <h4>${group.title} <span class="severity-${group.severity.toLowerCase()}">${group.severity}</span></h4>
-        <h3>${group.createdAt}</h3>
+        <h4>${group.title} <span class="severity-${group.severity}">${group.severity}</span></h4>
+        <h3>${new Date(group.createdAt).toLocaleDateString()}</h3>
         <hr>
         <ul style="list-style: none; padding: 0;">
             ${group.responders

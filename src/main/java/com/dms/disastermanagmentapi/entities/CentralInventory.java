@@ -2,6 +2,7 @@ package com.dms.disastermanagmentapi.entities;
 
 
 import com.dms.disastermanagmentapi.enums.ItemType;
+import com.dms.disastermanagmentapi.enums.Unit;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -28,5 +29,5 @@ public class CentralInventory {
     private ItemType type;
 
     @Column(length = 20)
-    private String unit;
+    private Unit unit;
 }

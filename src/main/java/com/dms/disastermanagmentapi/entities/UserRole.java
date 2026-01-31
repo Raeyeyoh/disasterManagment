@@ -37,4 +37,5 @@ public class UserRole {
         this.role = role;
         this.assignedAt = Instant.now();
     }
+    
 }

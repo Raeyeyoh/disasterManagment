@@ -99,12 +99,12 @@ async function viewDetails(reportId) {
                     <div style="padding: 10px; border-left: 4px solid #007bff; background: #f0f7ff;">
                         <pre style="white-space: pre-wrap; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;">${logData.message}</pre>
                         <hr>
-                        <small>Last entry: ${new Date(logData.createdAt.toLocaleDateString()).toLocaleString()}</small>
+                        <small>Last entry: ${new Date(logData.createdAt.toLocaleDateString).toLocaleString()}</small>
                     </div>
                 `;
       } else {
         feedbackContainer.innerHTML =
-          "<p style='color: gray;'>No activity logs recorded yet.</p>";
+          "<p style='color: gray;'>No feedback logs recorded yet.</p>";
       }
 
       modal.style.display = "block";

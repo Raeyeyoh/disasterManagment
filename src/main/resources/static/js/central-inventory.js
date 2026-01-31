@@ -21,8 +21,8 @@ async function loadCentralStock() {
         (item) => `
             <tr>
                 <td>${item.itemName}</td>
-                <td>${item.quantity}</td>
                 <td>${item.type}</td>
+                <td>${item.quantity}</td>
                 <td>${item.unit || "N/A"}</td>
             </tr>
         `,
@@ -97,6 +97,7 @@ async function loadPendingRequests() {
             <td>${req.region.regionName}</td>
             <td>${req.itemName}</td>
             <td>${req.quantity}</td>
+            <td>${req.unit}</td>
             <td>${req.itemType}</td>
             <td>${req.requestedBy.username}</td>
             <td><span class="priority-badge ${badgeClass}">${req.priority}</span></td>

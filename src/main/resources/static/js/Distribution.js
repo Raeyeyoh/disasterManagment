@@ -111,7 +111,7 @@ async function loadIncidents() {
       select.innerHTML = incidents
         .map(
           (inc) =>
-            `<option value="${inc.reportId}">${inc.title} (${inc.createdAt})</option>`,
+            `<option value="${inc.reportId}">${inc.title} (${new Date(inc.createdAt).toLocaleString()})</option>`,
         )
         .join("");
     } else {

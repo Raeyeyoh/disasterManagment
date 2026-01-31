@@ -7,13 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const adminFeedSection = document.getElementById("admin-feed-section");
   const feedbackContainer = document.getElementById("feedbackContainer");
   const feedbackForm = document.getElementById("feedbackForm");
-  const incidentSelectGroup = document.getElementById("admin");
   const submitBtn = document.getElementById("Submit");
 
   if (userRole === "ROLE_REGIONAL_ADMIN") {
     if (adminFeedSection) adminFeedSection.style.display = "block";
-    if (submissionSection) submissionSection.style.display = "block";
-    if (incidentSelectGroup) incidentSelectGroup.style.display = "block";
+    if (submissionSection) submissionSection.style.display = "none";
     submitBtn.innerText = "Submit & Resolve Incident";
     submitBtn.style.backgroundColor = "#e74c3c";
     if (feedbackContainer) fetchFeedback();
@@ -61,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (response.ok) {
           const resultMsg = await response.text();
           alert(resultMsg);
-          window.location.href = `home.html?id=${incidentId}`;
+          window.location.href = `feedback.html`;
         } else {
           const error = await response.text();
           alert("Failed to submit: " + error);
@@ -92,7 +90,7 @@ async function loadIncidentsForFeedback() {
             ? incidents
                 .map(
                   (inc) =>
-                    `<option value="${inc.reportId}">${inc.title} (${inc.status}) (${inc.createdAt})</option>`,
+                    `<option value="${inc.reportId}">${inc.title} (${inc.status}) (${new Date(inc.createdAt).toLocaleString()})</option>`,
                 )
                 .join("")
             : '<option value="">No active incidents in your region</option>';
@@ -145,15 +143,14 @@ function renderFeedback(logs) {
                 ${log.message}
             </div>
             <div class="feedback-footer" style="display: flex; justify-content: space-between; align-items: center;">
-                <span>By: ${log.submittedBy ? log.submittedBy.username : "System"}</span>
                 
                 ${
                   userRole === "ROLE_REGIONAL_ADMIN" && !isResolved
-                    ? `<button onclick="handleResolve(${log.report.reportId})" class="btn-primary" style="background: #e74c3c; border:none; padding: 5px 10px; border-radius:4px;">Resolve Incident</button>`
-                    : isResolved
-                      ? '<span style="color: #7f8c8d; font-weight: bold;">✅ RESOLVED</span>'
-                      : ""
+                    ? `<button onclick="openResolveForm(${log.report.reportId})" class="btn-primary" > review and Resolve Incident</button>
+`
+                    : ""
                 }
+
             </div>
         </div>`;
     })
@@ -183,4 +180,19 @@ async function handleResolve(id) {
   } catch (err) {
     console.error("Resolve failed:", err);
   }
+}
+function openResolveForm(incidentId) {
+  const submissionSection = document.getElementById("submission-section");
+  const select = document.getElementById("incidentSelect");
+
+  submissionSection.style.display = "block";
+
+  submissionSection.scrollIntoView({ behavior: "smooth" });
+
+  select.innerHTML = `
+    <option value="${incidentId}" selected>
+      Resolving Incident #${incidentId}
+    </option>
+  `;
+  select.disabled = true;
 }

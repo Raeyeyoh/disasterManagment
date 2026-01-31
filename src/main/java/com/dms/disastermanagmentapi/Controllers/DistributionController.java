@@ -121,5 +121,14 @@ public ResponseEntity<?> distributeAid(@RequestBody AidRequest dto, Authenticati
 
 return ResponseEntity.ok("Successfully distributed " + dto.getQuantity() + 
                          " " + dto.getItemName() + " to " + victim.getFullName());}
+                         @GetMapping("/analytics/summary")
+@PreAuthorize("hasAnyAuthority('ROLE_REGIONAL_ADMIN','ROLE_SUPER_ADMIN')")
+public ResponseEntity<?> getAidDistributionSummary() {
+    return ResponseEntity.ok(
+        distributionRepository.getTotalAidByItem()
+    );
+}
+
+
 
 }

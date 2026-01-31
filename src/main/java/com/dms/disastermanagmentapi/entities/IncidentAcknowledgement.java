@@ -31,5 +31,6 @@ public class IncidentAcknowledgement {
 
     public enum AckStatus {
         VIEWED, RESPONDING, RESOLVED
+        //
     }
 }

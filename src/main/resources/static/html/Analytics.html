@@ -49,6 +49,16 @@
     <section id="map-section" class="card panel--accent mt-2">
         <h2 class="panel-title">incident Locations</h2>
         <div id="map" class="map-full"></div>
+        <div class="chart-container">
+  <canvas id="aidDistributionChart"></canvas>
+  <button
+    onclick="downloadChart('aidDistributionChart', 'Aid_Distribution.png')"
+    class="btn-download"
+  >
+    📥 Download
+  </button>
+</div>
+
       </section>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
