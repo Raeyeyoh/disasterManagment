@@ -17,14 +17,20 @@
         <h3 class="section-title">Restock Central Catalog</h3>
         <form id="add-resource-form">
           <input type="text" id="itemName" placeholder="Item Name" required />
+
           <input type="number" id="quantity" placeholder="Quantity" required />
-          <select id="itemType">
+          <!-- <input type="number" id="reqQuantity" required /> -->
+
+          <select id="reqItemType">
             <option value="FOOD">Food</option>
             <option value="MEDICAL">Medical</option>
             <option value="EQUIPMENT">Equipment</option>
             <option value="OTHER">Other</option>
           </select>
-          <input type="text" id="unit" placeholder="Unit in kg" />
+
+          <label>Unit</label>
+          <select id="reqUnit" required></select>
+
           <button type="button" onclick="restockCentral()" class="btn-primary">
             Add to Stock
           </button>

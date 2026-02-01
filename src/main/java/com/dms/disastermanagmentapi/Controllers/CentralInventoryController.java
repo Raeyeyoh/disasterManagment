@@ -22,11 +22,13 @@ import com.dms.disastermanagmentapi.Repositories.InventoryTransferRequestReposit
 import com.dms.disastermanagmentapi.Repositories.UserRepository;
 import com.dms.disastermanagmentapi.Services.InventoryPriorityService;
 import com.dms.disastermanagmentapi.Services.InventoryService;
+import com.dms.disastermanagmentapi.Services.UnitConverter;
 import com.dms.disastermanagmentapi.entities.CentralInventory;
 import com.dms.disastermanagmentapi.entities.InventoryTransferRequest;
 import com.dms.disastermanagmentapi.entities.User;
 import com.dms.disastermanagmentapi.enums.PriorityLevel;
 import com.dms.disastermanagmentapi.enums.RequestStatus;
+import com.dms.disastermanagmentapi.enums.Unit;
 @CrossOrigin(origins = "http://127.0.0.1:5500") 
 @RestController
 @RequestMapping("/api/central-inventory")
@@ -49,19 +51,36 @@ public class CentralInventoryController {
         return centralRepo.findAll();
     }
 
-    @PostMapping("/stock/add")
-    public ResponseEntity<?> addStock(@RequestBody CentralInventory item) {
-        return centralRepo.findByItemName(item.getItemName())
-            .map(existing -> {
-                existing.setQuantity(existing.getQuantity() + item.getQuantity());
-                centralRepo.save(existing);
-                return ResponseEntity.ok("Central stock updated.");
-            })
-            .orElseGet(() -> {
-                centralRepo.save(item);
-                return ResponseEntity.ok("New resource added to Central.");
-            });
+   @PostMapping("/stock/add")
+public ResponseEntity<?> addStock(@RequestBody CentralInventory item) {
+
+    if (!item.getItemType()
+            .getAllowedUnits()
+            .contains(item.getUnit())) {
+        return ResponseEntity.badRequest()
+            .body("Invalid unit for item type");
     }
+
+    int baseQuantity =
+        UnitConverter.toBase(item.getUnit(), item.getQuantity());
+
+    Unit baseUnit = inventoryService.getBaseUnit(item.getItemType());
+
+    return centralRepo.findByItemName(item.getItemName())
+        .map(existing -> {
+            existing.setQuantity(existing.getQuantity() + baseQuantity);
+            centralRepo.save(existing);
+            return ResponseEntity.ok("Central stock updated.");
+        })
+        .orElseGet(() -> {
+            item.setQuantity(baseQuantity);
+            item.setUnit(baseUnit); 
+            centralRepo.save(item);
+            return ResponseEntity.ok("New resource added to Central.");
+        });
+}
+
+
 
     @Autowired
 private InventoryPriorityService priorityService;

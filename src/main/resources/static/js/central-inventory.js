@@ -1,6 +1,24 @@
+const itemTypeSelect = document.getElementById("reqItemType");
+const unitSelect = document.getElementById("reqUnit");
+
 document.addEventListener("DOMContentLoaded", () => {
   loadCentralStock();
   loadPendingRequests();
+  itemTypeSelect.addEventListener("change", () => {
+    const selectedType = itemTypeSelect.value;
+    const units = {
+      FOOD: ["KG", "LITER", "BAG"],
+      MEDICAL: ["PIECE", "BOX", "LITER"],
+      EQUIPMENT: ["PIECE", "BOX"],
+      OTHER: ["PIECE", "BAG", "BOX"],
+    };
+
+    unitSelect.innerHTML = units[selectedType]
+      .map((u) => `<option value="${u}">${u}</option>`)
+      .join("");
+  });
+
+  itemTypeSelect.dispatchEvent(new Event("change"));
 });
 
 const token = localStorage.getItem("token");
@@ -37,8 +55,8 @@ async function restockCentral() {
   const item = {
     itemName: document.getElementById("itemName").value,
     quantity: parseInt(document.getElementById("quantity").value),
-    type: document.getElementById("itemType").value,
-    unit: document.getElementById("unit").value,
+    type: document.getElementById("reqItemType").value,
+    unit: document.getElementById("reqUnit").value,
   };
 
   try {

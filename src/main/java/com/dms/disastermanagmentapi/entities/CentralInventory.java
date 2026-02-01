@@ -28,6 +28,12 @@ public class CentralInventory {
     @Column(nullable = false)
     private ItemType type;
 
-    @Column(length = 20)
-    private Unit unit;
+  @Enumerated(EnumType.STRING)
+@Column(name = "unit")
+private Unit unit;
+
+
+    public ItemType getItemType() {
+        return type;
+    }
 }

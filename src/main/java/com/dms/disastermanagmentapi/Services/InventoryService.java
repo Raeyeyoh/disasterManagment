@@ -16,7 +16,9 @@ import com.dms.disastermanagmentapi.entities.RegionalInventory;
 import com.dms.disastermanagmentapi.entities.RegionalInventoryId;
 import com.dms.disastermanagmentapi.entities.ResourceAllocation;
 import com.dms.disastermanagmentapi.entities.User;
+import com.dms.disastermanagmentapi.enums.ItemType;
 import com.dms.disastermanagmentapi.enums.RequestStatus;
+import com.dms.disastermanagmentapi.enums.Unit;
 @Service
 public class InventoryService {
 @Autowired
@@ -88,4 +90,12 @@ allocation.setRequest(req);
         req.setStatus(RequestStatus.APPROVED);
         transferRepo.save(req);
     }
+     public Unit getBaseUnit(ItemType type) {
+    return switch (type) {
+        case FOOD -> Unit.KG;
+        case MEDICAL -> Unit.PIECE;
+        case EQUIPMENT -> Unit.PIECE;
+        case OTHER -> Unit.PIECE;
+    };
+}
 }
