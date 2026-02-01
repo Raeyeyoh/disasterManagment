@@ -49,7 +49,7 @@ async function loadRegions() {
     console.error("Could not load regions", error);
   }
 }
-
+//register
 window.onload = loadRegions;
 function getLocation() {
   if (navigator.geolocation) {

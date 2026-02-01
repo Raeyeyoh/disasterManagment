@@ -336,8 +336,8 @@ async function loadAidDistributionChart() {
 
   const data = await res.json();
 
-  const labels = data.map((row) => row[0]); // itemName
-  const quantities = data.map((row) => row[1]); // total quantity
+  const labels = data.map((row) => row.itemName + " (" + row.region + ")");
+  const quantities = data.map((row) => row.totalQuantity);
 
   new Chart(document.getElementById("aidDistributionChart"), {
     type: "bar",
@@ -347,6 +347,7 @@ async function loadAidDistributionChart() {
         {
           label: "Aid Distributed (Total Quantity)",
           data: quantities,
+          backgroundColor: "#013237",
         },
       ],
     },
@@ -355,7 +356,7 @@ async function loadAidDistributionChart() {
       plugins: {
         title: {
           display: true,
-          text: "Aid Distribution by Item",
+          text: "Aid Distribution by Region & Item",
         },
       },
     },

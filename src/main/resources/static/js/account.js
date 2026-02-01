@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Fill in existing data from localStorage
   document.getElementById("display-username").innerText =
     localStorage.getItem("username");
   document.getElementById("display-role").innerText =

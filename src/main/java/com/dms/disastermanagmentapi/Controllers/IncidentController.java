@@ -152,7 +152,7 @@ public Authentication test(Authentication auth) {
 
 
 @GetMapping("/{id}")
-@PreAuthorize("hasAuthority('INCIDENT_VIEW')")
+@PreAuthorize("hasAuthority('ROLE_REGIONAL_STAFF')")
 public IncidentReport getIncident(@PathVariable Integer id) {
   
     return incidentRepository.findById(id)

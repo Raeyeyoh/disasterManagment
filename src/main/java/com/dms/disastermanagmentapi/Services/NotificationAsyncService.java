@@ -11,6 +11,7 @@ import com.dms.disastermanagmentapi.entities.IncidentReport;
 import com.dms.disastermanagmentapi.entities.Notification;
 import com.dms.disastermanagmentapi.entities.User;
 import com.dms.disastermanagmentapi.enums.NotificationType;
+import com.dms.disastermanagmentapi.enums.UserStatus;
 
 @Service
 public class NotificationAsyncService {
@@ -40,9 +41,11 @@ public class NotificationAsyncService {
 
                             staff.getRegion(), responderRoles);
                             
-                            List<User> filteredResponders = responders.stream()
-                .filter(u -> !u.getUserId().equals(staff.getUserId()))
-                .toList();
+                           List<User> filteredResponders = responders.stream()
+    .filter(u -> !u.getUserId().equals(staff.getUserId()))
+    .filter(u -> u.getStatus().equals(UserStatus.APPROVED)) 
+    .toList();
+
 
             for (User responder : filteredResponders) {
 

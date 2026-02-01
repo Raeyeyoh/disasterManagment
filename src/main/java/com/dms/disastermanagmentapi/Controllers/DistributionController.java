@@ -1,6 +1,8 @@
 package com.dms.disastermanagmentapi.Controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
@@ -56,6 +58,7 @@ public DistributionController(VictimRepository victimRepository,
     this.notificationRepository = notificationRepository; 
 }
 @GetMapping("/my-region-stock")
+@PreAuthorize("hasAuthority('ROLE_REGIONAL_STAFF')and hasAuthority('ROLE_REGIONAL_ADMIN')")
 public ResponseEntity<?> getMyRegionStock(Authentication auth) {
     User staff = userRepository.findByUsername(auth.getName()).orElseThrow();
     return ResponseEntity.ok(inventoryRepository.findById_RegionId(staff.getRegion().getRegionId())
@@ -63,12 +66,10 @@ public ResponseEntity<?> getMyRegionStock(Authentication auth) {
             .filter(item -> item.getQuantity() > 0)
             .collect(Collectors.toList()));
 }
-//hasAuthority('ROLE_REGIONAL_STAFF'), or("hasRole('VOLUNTEER')")
-   // @PreAuthorize("hasRole('ROLE_VOLUNTEER') or hasAuthority('RESOURCE_ALLOCATE')")
-//
+
 
     @PostMapping("/give-aid")
-    @PreAuthorize("hasAuthority('RESOURCE_ALLOCATE')")
+    @PreAuthorize("hasAuthority('ROLE_REGIONAL_STAFF') ")
 @Transactional
 public ResponseEntity<?> distributeAid(@RequestBody AidRequest dto, Authentication auth) {
     System.out.println("User Authorities: " + auth.getAuthorities());
@@ -121,13 +122,32 @@ public ResponseEntity<?> distributeAid(@RequestBody AidRequest dto, Authenticati
 
 return ResponseEntity.ok("Successfully distributed " + dto.getQuantity() + 
                          " " + dto.getItemName() + " to " + victim.getFullName());}
-                         @GetMapping("/analytics/summary")
+ @GetMapping("/analytics/summary")
 @PreAuthorize("hasAnyAuthority('ROLE_REGIONAL_ADMIN','ROLE_SUPER_ADMIN')")
-public ResponseEntity<?> getAidDistributionSummary() {
-    return ResponseEntity.ok(
-        distributionRepository.getTotalAidByItem()
-    );
+public ResponseEntity<?> getAidDistributionSummaryByRegion(Authentication auth) {
+    User currentUser = userRepository.findByUsername(auth.getName()).orElseThrow();
+    List<Object[]> data;
+
+    boolean isSuperAdmin = currentUser.getUserRoles().stream()
+            .anyMatch(ur -> ur.getRole().getRoleName().equals("ROLE_SUPER_ADMIN"));
+
+    if (isSuperAdmin) {
+        data = distributionRepository.getTotalAidByItemByRegion();
+    } else {
+        data = distributionRepository.getTotalAidByItemByRegionFiltered(currentUser.getRegion());
+    }
+
+    List<Map<String, Object>> result = data.stream().map(obj -> {
+        Map<String, Object> map = new HashMap<>();
+        map.put("region", obj[0]);
+        map.put("itemName", obj[1]);
+        map.put("totalQuantity", obj[2]);
+        return map;
+    }).toList();
+
+    return ResponseEntity.ok(result);
 }
+
 
 
 

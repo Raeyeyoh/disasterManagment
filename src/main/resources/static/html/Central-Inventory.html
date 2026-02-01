@@ -18,18 +18,22 @@
         <form id="add-resource-form">
           <input type="text" id="itemName" placeholder="Item Name" required />
 
-          <input type="number" id="quantity" placeholder="Quantity" required />
-          <!-- <input type="number" id="reqQuantity" required /> -->
+          <input
+            type="number"
+            id="quantity"
+            placeholder="Quantity"
+            required
+            class="mt-2"
+          />
 
-          <select id="reqItemType">
+          <select id="reqItemType" class="mt-2">
             <option value="FOOD">Food</option>
             <option value="MEDICAL">Medical</option>
             <option value="EQUIPMENT">Equipment</option>
             <option value="OTHER">Other</option>
           </select>
 
-          <label>Unit</label>
-          <select id="reqUnit" required></select>
+          <select id="reqUnit" required class="mt-2"></select>
 
           <button type="button" onclick="restockCentral()" class="btn-primary">
             Add to Stock

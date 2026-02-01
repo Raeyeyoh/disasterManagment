@@ -31,6 +31,7 @@ public class RegionalInventory {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ItemType type;
+  @Enumerated(EnumType.STRING)
 
     @Column(length = 20)
     private Unit unit; 

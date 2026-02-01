@@ -35,7 +35,6 @@ document
       quantity: parseInt(document.getElementById("quantity").value),
     };
     console.log("SENDING DATA:", distributionData);
-    //"http://127.0.0.1:8080/api/distribution/give-aid"
     try {
       const response = await fetch(
         "http://localhost:8080/api/distribution/give-aid",
@@ -66,7 +65,7 @@ document
 async function loadAvailableItems() {
   const token = localStorage.getItem("token");
   const response = await fetch(
-    "http://localhost:8080/api/distribution/my-region-stock",
+    "http://localhost:8080/api/regional-inventory/stock", //for loading the items to give
     {
       headers: { Authorization: `Bearer ${token}` },
     },
@@ -78,12 +77,12 @@ async function loadAvailableItems() {
     select.innerHTML = items
       .map(
         (item) =>
-          `<option value="${item.itemName}">${item.itemName} (Available: ${item.quantity})</option>`,
+          `<option value="${item.itemName}">${item.itemName} (Available: ${item.quantity}) (${item.unit})</option>`,
       )
       .join("");
   }
 }
-
+//removed
 async function loadIncidents() {
   const token = localStorage.getItem("token");
   try {

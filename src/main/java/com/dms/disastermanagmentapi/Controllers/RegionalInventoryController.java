@@ -38,7 +38,7 @@ public class RegionalInventoryController {
     }
 
     @GetMapping("/stock")
-    @PreAuthorize("hasAuthority('ROLE_REGIONAL_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_REGIONAL_ADMIN' ,'ROLE_REGIONAL_STAFF')")
     public ResponseEntity<?> getMyStock(Authentication auth) {
         System.out.println(auth.getAuthorities());
         User user = userRepository.findByUsername(auth.getName()).orElseThrow();
